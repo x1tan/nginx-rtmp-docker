@@ -59,7 +59,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private
 # Set up config file
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY self-signed.conf /etc/nginx/snippets/self-signed.conf
-COPY ssl-params.conf /etc/nginx/snippets/self-params.conf
+COPY ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
 EXPOSE 1935 8080
 CMD ["nginx", "-g", "daemon off;"]
