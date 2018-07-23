@@ -49,8 +49,17 @@ RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
+# Setup OpenSSL
+RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key \ 
+    -out /etc/ssl/certs/nginx-selfsigned.crt \
+    -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=stream.xitan.me"
+
+
 # Set up config file
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY self-signed.conf /etc/nginx/snippets/self-signed.conf
+COPY ssl-params.conf /etc/nginx/snippets/self-params.conf
 
-EXPOSE 1935
+EXPOSE 1935 8080
 CMD ["nginx", "-g", "daemon off;"]
