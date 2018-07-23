@@ -26,7 +26,7 @@ The main purpose (and test case) to build it was to allow streaming from [**OBS 
 
 ```bash
 docker run -d -p 1935:1935 --name nginx-rtmp tiangolo/nginx-rtmp
-docker run -d -p 1935:1935 --name nginx-rtmp-hls -t nginx-rtmp-hls
+docker run -d -p 1935:1935 -p 8080:8080 --name nginx-rtmp-hls -t nginx-rtmp-hls
 ```
 
 ## How to test with OBS Studio and VLC
